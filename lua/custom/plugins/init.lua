@@ -3,79 +3,24 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-  -- themes
-  'shaunsingh/moonlight.nvim',
-  'savq/melange-nvim',
-  {
-    'neanias/everforest-nvim',
-    version = false,
-    lazy = false,
-    -- priority = 1000, -- make sure to load this before all the other start plugins
-    -- Optional; default configuration will be used if setup isn't called.
-    config = function()
-      require('everforest').setup {
-        -- Your config here
-        background = 'hard',
-        colours_override = function(palette)
-          palette.bg0 = '#1A2024'
-        end,
-      }
-
-      -- require("everforest").load()
-    end,
-  },
-  {
-    'mcchrish/zenbones.nvim',
-    dependencies = { 'rktjmp/lush.nvim' },
-    -- priority = 1000,
-  },
-  {
-    'comfysage/evergarden',
-    opts = {},
-  },
-  {
-    'ribru17/bamboo.nvim',
-    -- lazy = false,
-    -- priority = 1000,
-    config = function()
-      require('bamboo').setup {
-        -- optional configuration here
-        style = 'multiplex',
-      }
-      -- require('bamboo').load()
-    end,
-  },
-  {
-    'EdenEast/nightfox.nvim',
-    config = function()
-      require('nightfox').setup()
-      vim.cmd 'colorscheme duskfox'
-    end,
-  },
-  {
-    -- Set lualine as statusline
-    'nvim-lualine/lualine.nvim',
-    -- See `:help lualine.txt`
-    opts = {
-      options = {
-        icons_enabled = false,
-        component_separators = '|',
-        section_separators = '',
-      },
-    },
-  },
-  -- file management
-  {
-    'stevearc/oil.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    opts = {
-      view_options = {
-        show_hidden = true,
-      },
-    },
-  },
+  { 'echasnovski/mini.statusline', version = false, opts = {} },
   { 'echasnovski/mini.pairs', version = false, opts = {} },
-  { 'echasnovski/mini.ai', version = false, opts = {} },
+  {
+    'echasnovski/mini.ai',
+    version = false,
+    config = function()
+      local spec_treesitter = require('mini.ai').gen_spec.treesitter
+      require('mini.ai').setup {
+        custom_textobjects = {
+          F = spec_treesitter { a = '@function.outer', i = '@function.inner' },
+          o = spec_treesitter {
+            a = { '@conditional.outer', '@loop.outer' },
+            i = { '@conditional.inner', '@loop.inner' },
+          },
+        },
+      }
+    end,
+  },
   -- { 'echasnovski/mini.surround', version = false, opts = {} },
   -- {
   --   'otavioschwanck/arrow.nvim',
@@ -86,34 +31,27 @@ return {
   --   },
   -- },
   -- {
-  --   'zbirenbaum/copilot.lua',
-  --   event = 'VeryLazy',
+  --   'shellRaining/hlchunk.nvim',
+  --   event = { 'UIEnter' },
   --   opts = {
-  --     filetypes = { ['*'] = true },
+  --     indent = { exclude_filetypes = { oil_preview = true, fzf = true } },
+  --     blank = { enable = false },
+  --     chunk = { notify = false, chars = { right_arrow = '─' } },
+  --     line_num = { enable = false },
   --   },
   -- },
-  {
-    'shellRaining/hlchunk.nvim',
-    event = { 'UIEnter' },
-    opts = {
-      indent = { exclude_filetypes = { oil_preview = true, fzf = true } },
-      blank = { enable = false },
-      chunk = { notify = false, chars = { right_arrow = '─' } },
-      line_num = { enable = false },
-    },
-  },
   -- guesses indent width on buffer open
   {
     'nmac427/guess-indent.nvim',
     opts = {},
   },
-  {
-    'yorickpeterse/nvim-window',
-    keys = {
-      { '<leader>wj', "<cmd>lua require('nvim-window').pick()<cr>", desc = 'nvim-window: Jump to window' },
-    },
-    config = true,
-  },
+  -- {
+  --   'yorickpeterse/nvim-window',
+  --   keys = {
+  --     { '<leader>wj', "<cmd>lua require('nvim-window').pick()<cr>", desc = 'nvim-window: Jump to window' },
+  --   },
+  --   config = true,
+  -- },
   {
     'folke/flash.nvim',
     event = 'VeryLazy',
@@ -130,11 +68,21 @@ return {
   },
   {
     'smjonas/inc-rename.nvim',
-    config = function()
-      require('inc_rename').setup()
-      vim.keymap.set('n', '<leader>rn', function()
-        return ':IncRename ' .. vim.fn.expand '<cword>'
-      end, { expr = true })
-    end,
+    opts = {},
+    keys = {
+      { '<leader>rn', mode = 'n', ':IncRename ', desc = '[R]e[N]ame' },
+    },
   },
+  -- {
+  --   'utilyre/barbecue.nvim',
+  --   name = 'barbecue',
+  --   version = '*',
+  --   dependencies = {
+  --     'SmiteshP/nvim-navic',
+  --     'nvim-tree/nvim-web-devicons', -- optional dependency
+  --   },
+  --   opts = {
+  --     -- configurations go here
+  --   },
+  -- },
 }

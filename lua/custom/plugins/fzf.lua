@@ -2,7 +2,7 @@ return {
   'ibhagwan/fzf-lua',
   event = 'VeryLazy',
   config = function()
-    require('fzf-lua').setup { 'borderless' }
+    require('fzf-lua').setup { 'telescope' }
     vim.keymap.set('n', '<leader>gf', function()
       require('fzf-lua').git_files()
     end, { desc = 'Search [G]it [F]iles' })
