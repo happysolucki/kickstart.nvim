@@ -29,6 +29,11 @@ return {
     end,
   },
   {
+    'echasnovski/mini.trailspace',
+    version = false,
+    opts = {},
+  },
+  {
     'tzachar/highlight-undo.nvim',
     opts = {},
   },
