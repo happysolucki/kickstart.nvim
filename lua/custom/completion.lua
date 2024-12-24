@@ -9,7 +9,7 @@ local cmp = require 'cmp'
 cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'path' },
+    -- { name = 'path' },
     { name = 'buffer' },
     { name = 'lazydev', group_index = 0 },
   },
@@ -22,7 +22,6 @@ cmp.setup {
         nvim_lsp = 'ʟsᴘ',
         path = 'ᴘᴀᴛʜ',
         buffer = 'ʙᴜꜰ',
-        ['vim-dadbod-completion'] = 'ᴅʙ',
       },
       maxwidth = 50,
       ellipsis_char = '...',
@@ -47,13 +46,6 @@ cmp.setup {
     end,
   },
 }
-
-cmp.setup.filetype({ 'mysql' }, {
-  sources = {
-    { name = 'vim-dadbod-completion' },
-    { name = 'buffer' },
-  },
-})
 
 local ls = require 'luasnip'
 ls.config.set_config {

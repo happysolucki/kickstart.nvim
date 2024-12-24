@@ -14,7 +14,7 @@ return {
       end,
     },
   },
-  config = function()
-    require 'custom.telescope'
-  end,
+  -- config = function()
+  --   require 'custom.telescope'
+  -- end,
 }
